@@ -1,7 +1,7 @@
+"use client"
 import { useState } from "react";
-import { supabase } from "./app/sup";
 
-export const Auth = () => {
+export const Auth = ({supabase}: {supabase: any}) => {
   const [user, setUser] = useState<any>(null);
   const login = async () => {
     const email = "test@test.com";

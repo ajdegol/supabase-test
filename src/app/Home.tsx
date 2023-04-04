@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "./sup";
 import { Auth } from "@/Auth";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 
 const setVal = async (val: boolean) => {
@@ -19,6 +19,7 @@ const setVal = async (val: boolean) => {
 
 export default function Home({ serverVal }: { serverVal: boolean }) {
   const [val, setValLocal] = useState(serverVal);
+  const [supabase] = useState(() => createBrowserSupabaseClient());
 
   useEffect(() => {
     const subscription = supabase
@@ -39,9 +40,10 @@ export default function Home({ serverVal }: { serverVal: boolean }) {
     };
   }, []);
 
+
   return (
     <div>
-      <Auth/>
+      <Auth supabase={supabase}/>
       <h1>Current val: {`${val}`}</h1>
 
       <button onClick={() => setVal(true)}>
