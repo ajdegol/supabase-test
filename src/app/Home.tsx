@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "./sup";
+import { Auth } from "@/Auth";
+
 
 const setVal = async (val: boolean) => {
   await fetch("/api/set", {
@@ -13,10 +15,7 @@ const setVal = async (val: boolean) => {
   });
 };
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+
 
 export default function Home({ serverVal }: { serverVal: boolean }) {
   const [val, setValLocal] = useState(serverVal);
@@ -42,6 +41,7 @@ export default function Home({ serverVal }: { serverVal: boolean }) {
 
   return (
     <div>
+      <Auth/>
       <h1>Current val: {`${val}`}</h1>
 
       <button onClick={() => setVal(true)}>

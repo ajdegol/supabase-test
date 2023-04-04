@@ -11,11 +11,11 @@ export async function POST(request: NextRequest) {
   });
 
   try {
-    // const { data: userData } = await supabase.auth.getUser();
-    // const user = userData?.user;
-    // if (!user) {
-    //   return NextResponse.json({ error: "User not found" }, { status: 404 });
-    // }
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData?.user;
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
 
     // Update profile
     const { data, error } = await supabase.from("test_table").update({
